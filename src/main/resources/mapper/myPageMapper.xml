@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.job.mapper.MypageMapper">
+
+<update id="updateCompanyFile" parameterType="com.job.dto.CompanyFileDto">
+    update company_file_tb
+    set file_path = #{filePath}, original_name = #{originalName}, file_size = #{fileSize} 
+    where company_idx = #{companyIdx}
+</update>
+
+<select id="getCompanyFile">
+SELECT FILE_PATH,FILE_SIZE,ORIGINAL_NAME
+FROM COMPANY_FILE_TB
+WHERE COMPANY_IDX = #{companyIdx}
+</select>
+
+	<select id="getEmailByUserIdx">
+	select user_email
+	from user_tb
+	where user_idx = #{userIdx}
+	</select>
+
+	<select id="getCompanyByUserIdx" parameterType="com.job.dto.CompanyDto">
+	select *
+	from company_tb
+	where user_idx = #{userIdx}
+	</select>
+
+	<select id="getPersonSkill" parameterType="com.job.dto.SkillDto">
+		SELECT s.SKILL_NAME
+		FROM person_skill_tb ps
+		JOIN skill_tb s ON ps.SKILL_IDX = s.SKILL_IDX
+		WHERE ps.PERSON_IDX = #{personIdx}
+		ORDER BY s.SKILL_IDX ASC
+	</select>
+
+	<select id="getPersonIdxByUserIdx">
+	select person_idx
+	from person_tb
+	where user_idx = #{userIdx}
+	</select>
+
+	<select id="getPerson">
+		SELECT
+		PERSON_IDX,
+		PERSON_ADDRESS,
+		PERSON_BIRTH,
+		PERSON_EDUCATION,
+		PERSON_NAME,
+		PERSON_PHONE
+		FROM
+		PERSON_TB
+		WHERE
+		PERSON_IDX = #{ personIdx }
+	</select>
+	<update id="updateEmail">
+	update user_tb
+	set user_email = #{userEmail}
+	where user_idx=#{userIdx}
+	</update>
+	
+	<update id="updateCompany" parameterType="com.job.dto.CompanyDto">
+		UPDATE COMPANY_TB
+		SET
+		COMPANY_EMP = #{companyEmp, javaType=java.lang.Long, jdbcType=BIGINT},
+		COMPANY_ADDRESS = #{companyAddress},
+		COMPANY_MGR_NAME = #{companyMgrName},
+		COMPANY_MGR_PHONE = #{companyMgrPhone},
+		COMPANY_NAME = #{companyName},
+		COMPANY_PHONE = #{companyPhone},
+		COMPANY_REP_NAME = #{companyRepName},
+		COMPANY_SECTOR = #{companySector},
+		COMPANY_SIZE = #{companySize},
+		COMPANY_YEAR = #{companyYear}
+		WHERE USER_IDX =#{userIdx}
+	</update>
+
+	<update id="updatePerson">
+		UPDATE PERSON_TB
+		SET 
+		PERSON_ADDRESS = #{ personAddress },
+		PERSON_BIRTH = #{ personBirth },
+		PERSON_EDUCATION = #{ personEducation
+		},
+		PERSON_NAME = #{ personName },
+		PERSON_PHONE = #{ personPhone }
+		WHERE PERSON_IDX = #{ personIdx }
+	</update>
+
+	<select id="getPersonByUserIdx">
+		SELECT
+		PERSON_IDX,
+		PERSON_ADDRESS,
+		PERSON_BIRTH,
+		PERSON_EDUCATION,
+		PERSON_NAME,
+		PERSON_PHONE
+		FROM
+		PERSON_TB
+		WHERE
+		USER_IDX = #{ userIdx }
+	</select>
+	
+	<delete id="accountDelete">
+		DELETE FROM USER_TB WHERE USER_IDX=#{userIdx}
+	</delete>
+
+</mapper>

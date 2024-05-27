@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.job.mapper.CompanyMapper">
+
+
+
+<insert id="insertCompany" parameterType="com.job.dto.CompanyDto">
+		
+INSERT  INTO   COMPANY_TB (
+  	USER_IDX,
+    COMPANY_IDX,
+	COMPANY_NAME,
+	COMPANY_REP_NAME,
+	COMPANY_PHONE,
+	COMPANY_ADDRESS
+		)
+VALUES (
+    USER_SEQ.CURRVAL,
+    COMPANY_SEQ.NEXTVAL,
+    #{ companyName},
+    #{ companyRepName},
+    #{ companyPhone  },
+  	#{ companyAddress     }
+)
+	
+	</insert>
+
+<insert id="insertCompanyFile">
+INSERT INTO COMPANY_FILE_TB(
+COMPANY_IDX,
+FILE_SIZE,
+COMPANY_FILE_IDX,
+FILE_PATH,
+ORIGINAL_NAME,
+UPLOAD_DATE
+)
+VALUES (
+COMPANY_SEQ.CURRVAL,
+36261,
+COMPANY_FILE_SEQ.NEXTVAL,
+'/images/person.png',
+'person.png',
+SYSDATE
+)
+
+
+</insert>	
+
+</mapper>

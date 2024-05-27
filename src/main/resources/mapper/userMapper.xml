@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.job.mapper.UserMapper">
+
+	<insert id="insertUser" parameterType="com.job.dto.UserDto">
+		INSERT INTO USER_TB (
+		USER_IDX,
+		CREATED_DATE,
+		USER_EMAIL,
+		USER_TYPE,
+		USER_ID,
+		USER_PW
+		)
+		VALUES(
+		USER_SEQ.NEXTVAL,
+		SYSDATE,
+		#{userEmail},
+		#{userType},
+		#{userId},
+		#{userPw}
+		)
+	</insert>
+	<select id="login">
+
+		SELECT
+		*
+		FROM
+		USER_TB
+		WHERE
+		USER_ID = #{ userId }
+		AND
+		USER_PW = #{ userPw }
+	
+
+
+
+	</select>
+	<select id="getUser" resultType="hashmap">
+
+
+		SELECT
+		USER_ID
+
+		FROM
+		USER_TB
+		WHERE
+		USER_ID = #{ userId }
+
+
+	</select>
+
+
+
+    <select id="getUserBookmarks" resultType="com.job.dto.CScrapListDto">
+ SELECT 
+            COMPANY_TB.COMPANY_NAME, 
+            POSTING_TB.POSTING_TITLE, 
+            POSTING_TB.JOB_TYPE, 
+            POSTING_TB.POSTING_DEADLINE, 
+            POSTING_TB.POSTING_IDX
+        FROM 
+            POSTING_TB
+        JOIN 
+            COMPANY_TB ON POSTING_TB.USER_IDX = COMPANY_TB.USER_IDX
+        JOIN 
+            POSTING_SCRAP_TB ON POSTING_TB.POSTING_IDX = POSTING_SCRAP_TB.POSTING_IDX
+        WHERE 
+            POSTING_SCRAP_TB.PERSON_IDX = #{personIdx}
+    </select>
+
+ 
+
+
+
+</mapper>

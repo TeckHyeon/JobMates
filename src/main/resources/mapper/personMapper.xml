@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.job.mapper.PersonMapper">
+
+
+	<insert id="insertPerson" parameterType="com.job.dto.PersonDto">
+
+		INSERT INTO PERSON_TB (
+		USER_IDX,
+		PERSON_IDX,
+		PERSON_NAME,
+		PERSON_PHONE,
+		PERSON_ADDRESS,
+		PERSON_BIRTH
+		)
+		VALUES (
+		USER_SEQ.CURRVAL,
+		PERSON_SEQ.NEXTVAL,
+		#{ personName},
+		#{ personPhone},
+		#{ personAddress },
+		#{ personBirth }
+		)
+
+	</insert>
+
+	    <select id="getUserBookmarks" parameterType="String" resultType="com.job.dto.PostingScrapDto">
+        SELECT COMPANY_NAME, POSTING_TITLE, JOB_TYPE, POSTING_DEADLINE 
+        FROM POSTING_TB, COMPANY_TB
+     
+    </select>
+
+
+</mapper>
+	

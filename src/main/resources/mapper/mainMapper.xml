@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.job.mapper.MainMapper">
+	<select id="getfaq">
+		SELECT
+			FAQ_IDX,
+			FAQ_TYPE,
+			ANSWER,
+			QUESTION
+		FROM
+			FAQ_TB
+		WHERE
+			FAQ_IDX = #{ faqIdx }
+	</select>
+		
+	<select id="getFaqlist">
+		SELECT
+			FAQ_IDX,
+			FAQ_TYPE,
+			ANSWER,
+			QUESTION
+		FROM
+			FAQ_TB
+		
+	</select>
+	
+</mapper>
